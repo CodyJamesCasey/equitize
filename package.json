@@ -22,7 +22,10 @@
   },
   "dependencies": {
     "express": "^4.9.8",
+    "material-ui": "^0.7.0",
     "port-friends": "^1.2.1",
+    "react": "^0.12.2",
+    "react-tap-event-plugin": "^0.1.4",
     "request": "^2.45.0",
     "serve-favicon": "^2.1.6"
   }

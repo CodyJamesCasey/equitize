@@ -1,11 +1,20 @@
 var ListItem = React.createClass({
 
-    render: function() {
+	getDefaultProps: function(){
+		return{
 
-        return ( 
-    		<main>
-    			main
-            </main>
-        );
-    }
+			firstName: 'Cody',
+			lastName: 'Casey'
+		}
+	},
+
+	render: function(){
+		var firstName = this.props.firstName;
+		var lastName = this.props.lastName;
+		return(
+			<div>
+				{firstName} {lastName}
+			</div>
+		)
+	}
 });
