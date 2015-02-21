@@ -24,10 +24,28 @@ exports.route = function(app, callback) {
             }, function(err) {
                 if (err) callback(err);
                 else {
+                    // Login page route
+                    log.debug('Loading login page route');
+                    app.get('/login', function(req, res) {
+                        if (req.user) {
+                            res.redirect('/');
+                        } else {
+                            res.sendFile(path.join(__dirname, '..', '..', 'dist', 'pages', 'login.html'));
+                        }
+                    });
+                    // Adding the test route
+                    // TODO DELETE THIS BULLSHIT
+                    app.get('/test*', function(req, res) {
+                        res.sendFile(path.join(__dirname, '..', '..', 'dist', 'pages', 'index.html'));
+                    });
                     // Main page route must be added _after_ all the others
                     log.debug('Loading main page route');
                     app.get('/*', function(req, res) {
-                        res.sendFile(path.join(__dirname, '..', '..', 'public', 'dist', 'pages', 'index.html'));
+                        if (req.user) {
+                            res.sendFile(path.join(__dirname, '..', '..', 'dist', 'pages', 'index.html'));
+                        } else {
+                            res.redirect('/login');
+                        }
                     });
                     // All routing now complete
                     log.info('Endpoint routing completed');
