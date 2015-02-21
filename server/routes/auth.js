@@ -19,13 +19,19 @@ exports.route = function(app) {
         }
     });
 
-    app.get('/api/auth/venmo', passport.authenticate('venmo'));
+    app.get('/api/auth/venmo',
+            passport.authenticate('venmo', {
+                scope: [
+                    'make_payments',
+                    'access_profile',
+                    'access_email',
+                    'access_balance'
+                ]
+            }));
 
-    app.get('/auth/venmo/callback',
-            passport.authenticate('venmo',
-                { failureRedirect: '/login' },
-                function(req, res) {
-                    // Successful authentication
-                    res.redirect('/');
-                }));
+    app.get('/api/venmo/callback',
+            passport.authenticate('venmo', {
+                failureRedirect: '/login',
+                successRedirect: '/'
+            }));
 };

@@ -48,7 +48,7 @@ var helpers = {
             })
             .pipe(plumber())
             .pipe(source(path.join(__dirname, 'main.js')))
-            .pipe(gulp.dest(path.join(__dirname, 'public', 'dist', 'js')))
+            .pipe(gulp.dest(path.join(__dirname, 'dist', 'js')))
     },
     delay: function(callback) {
         // Waits a second before executing a function
@@ -103,7 +103,7 @@ gulp.task('less', function() {
         .pipe(sourcemaps.init())
         .pipe(less())
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest(path.join('public', 'dist', 'css')));
+        .pipe(gulp.dest(path.join('.', 'dist', 'css')));
 });
 
 // Condenses the pages
@@ -114,7 +114,7 @@ gulp.task('pages', function() {
             empty: true,
             spare: true
         }))
-        .pipe(gulp.dest(path.join('public', 'dist', 'pages')));
+        .pipe(gulp.dest(path.join('.', 'dist', 'pages')));
 });
 
 // Condenses the images
@@ -122,7 +122,7 @@ gulp.task('images', function() {
     // TODO: image compression
     gulp.src('./public/img/**/*')
         .pipe(plumber())
-        .pipe(gulp.dest(path.join('public', 'dist', 'img')));
+        .pipe(gulp.dest(path.join('.', 'dist', 'img')));
 });
 
 // Condenses the images
@@ -131,14 +131,14 @@ gulp.task('images-delayed', function() {
     setTimeout(function() {
         gulp.src('./public/img/**/*')
             .pipe(plumber())
-            .pipe(gulp.dest(path.join('public', 'dist', 'img')))
+            .pipe(gulp.dest(path.join('.', 'dist', 'img')))
             .on('error', helpers.smother);
     }, 500);
 });
 
 // Clears all compiled public code
 gulp.task('clean', function() {
-    clean.sync(path.join(__dirname, 'public', 'dist'));
+    clean.sync(path.join(__dirname, 'dist'));
 });
 
 // Watches changes to the public code
@@ -156,7 +156,7 @@ gulp.task('dev', ['watch'], function() {
         ignore: ['public/**/*'],
         env: {
             // Server environment
-            PORT: 80,
+            PORT: 3000,
             DB: constants.DEV_DB_CONN_STRING,
             VERBOSE: true,
             SESSION_SECRET: 'thisisnotasecretatall'
