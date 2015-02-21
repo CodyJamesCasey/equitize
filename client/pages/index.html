@@ -13,7 +13,68 @@
 <body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.12.2/react.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.12.2/JSXTransformer.js"></script>
-    <script src="/static/js/main.js" type="text/jsx"></script>
+    <script src="/static/js/main.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    var map = null;
+
+    function GetMap() {
+        var cred = "Ain9coRfttDIm04OT_fUE8LmCEKAl9moAugoxS9DyXc8VcEr5eBIYAwnQ2sgA20g";
+        map = new Microsoft.Maps.Map(document.getElementById("mapDiv"), {
+          credentials: cred
+        });
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(locateSuccess, locateFail);
+        } else {
+          alert('Your browser does not support Geolocation : (  Jirani fails!');
+        }
+      }
+    function locateSuccess(loc) {
+      var userLocation = new Microsoft.Maps.Location(loc.coords.latitude, loc.coords.longitude);  
+      map.setView({
+          center: userLocation,
+          zoom: 17
+        });
+      var fund1 = {latitude: 39.999995, longitude: -75.19795},
+          fund2 = {latitude: 40.239, longitude: -75.233},
+          fund3 = {latitude: 40.105, longitude: -75.111},
+          fund4 = {latitude: 40, longitude: -73},
+          fund5 = {latitude: 40, longitude: -73},
+          fund6 = {latitude: 39, longitude: -75},
+          fund7 = {latitude: 38, longitude: -75};
+      var base = new Microsoft.Maps.Pushpin(userLocation, {height: 128, width: 128});
+      map.entities.push(base);
+      
+      var fundarray = [fund1, fund2, fund3, fund4, fund5, fund6, fund7];
+      var temp = [];
+      
+      for(i = 0; i<fundarray.length; i++) {
+        temp[i] = new Microsoft.Maps.Pushpin(new Microsoft.Maps.Location(fundarray[i].latitude, fundarray[i].longitude))
+        map.entities.push(temp[i]); 
+      }
+          
+      
+          
+      
+      }
+    function locateFail(geoPositionError) {
+        switch (geoPositionError.code) {
+        case 0:
+          alert('An unknown error occurred, sorry');
+          break;
+        case 1:
+          alert('Permission to use Geolocation was denied');
+          break;
+        case 2: 
+          alert('Couldn\'t find you...');
+          break;
+        case 3: 
+          alert('The Geolocation request took too long and timed out');
+          break;
+        default:
+        }
+      }
+  </script>
+  <script>GetMap();</script>
 </body>
 
 </html>
