@@ -19,7 +19,7 @@ module.exports = function(done) {
     var app = express();
     // Middleware
     // Serves our static assets
-    app.use('/static', express.static(path.join(__dirname, '..', 'dist')));
+    app.use('/static', express.static(path.join(__dirname, '..', 'public',  'dist')));
     // Parses cookies
     app.use(cookieParser());
     // Reads JSON request bodies

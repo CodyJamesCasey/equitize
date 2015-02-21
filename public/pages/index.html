@@ -1,15 +1,69 @@
-<!DOCTYPE>
+<!doctype html>
 <html>
 
 <head>
-    <title>React Boiler Plate</title>
-    <link rel="stylesheet" type="text/css" href="/static/main.css">
+  <title>React Boiler Plate</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="stylesheet" type="text/css" href="/static/css/main.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.12.2/react.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.12.2/JSXTransformer.js"></script>
+  <script src="/static/js/main.js" type="text/jsx"></script>
+  <script charset="UTF-8" type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
+  <script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
+  <script type="text/javascript" src="/static/js/main.js"></script>
+ <!-- <script type="text/javascript">
+    var map = null;
+
+    function GetMap() {
+        var cred = "Ain9coRfttDIm04OT_fUE8LmCEKAl9moAugoxS9DyXc8VcEr5eBIYAwnQ2sgA20g";
+        map = new Microsoft.Maps.Map(document.getElementById("mapDiv"), {
+          credentials: cred
+        });
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(locateSuccess, locateFail);
+        } else {
+          alert('Your browser does not support Geolocation : (  Jirani fails!');
+        }
+      }
+    function locateSuccess(loc) {
+      var userLocation = new Microsoft.Maps.Location(loc.coords.latitude, loc.coords.longitude);  
+      map.setView({
+          center: userLocation,
+          zoom: 17
+        });
+      var pin1 = new Microsoft.Maps.Pushpin(userLocation, {draggable: false, icon: "https://tucis.slack.com/emoji/smith/a146ff554bf40794.png", height: 200, width: 200});
+      var pin2 = new Microsoft.Maps.Pushpin(new Microsoft.Maps.Location(125, -11), {draggable: false, icon: "https://tucis.slack.com/emoji/smith/a146ff554bf40794.png", height: 200, width: 200});
+      var pin3 = new Microsoft.Maps.Pushpin(new Microsoft.Maps.Location(145, -10), {draggable: false, icon: "https://tucis.slack.com/emoji/smith/a146ff554bf40794.png", height: 200, width: 200});
+      var pin4 = new Microsoft.Maps.Pushpin(new Microsoft.Maps.Location(155, -100), {draggable: false, icon: "https://tucis.slack.com/emoji/smith/a146ff554bf40794.png", height: 200, width: 200});
+      var pin5 = new Microsoft.Maps.Pushpin(new Microsoft.Maps.Location(105, -120), {draggable: false, icon: "https://tucis.slack.com/emoji/smith/a146ff554bf40794.png", height: 200, width: 200});
+      map.entities.push(pin1);
+      map.entities.push(pin2);
+      map.entities.push(pin3);
+      map.entities.push(pin4);
+      map.entities.push(pin5);
+      }
+    function locateFail(geoPositionError) {
+        switch (geoPositionError.code) {
+        case 0:
+          alert('An unknown error occurred, sorry');
+          break;
+        case 1:
+          alert('Permission to use Geolocation was denied');
+          break;
+        case 2: 
+          alert('Couldn\'t find you...');
+          break;
+        case 3: 
+          alert('The Geolocation request took too long and timed out');
+          break;
+        default:
+        }
+      }
+  </script> -->
 </head>
 
-<body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.12.2/react.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.12.2/JSXTransformer.js"></script>
-    <script src="/static/main.js" type="text/jsx"></script>
+<body onload="GetMap();">
+  <div id='mapDiv' class='map'></div>
 </body>
 
 </html>
