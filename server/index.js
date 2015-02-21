@@ -44,36 +44,54 @@ module.exports = function(done) {
             // Setup the passport configuration
             app.use(passport.initialize());
             app.use(passport.session());
+
             // Setup the local passport strategy
             passport.use(new passportVenmo.Strategy({
                 clientID: util.env.venmoClientId,
                 clientSecret: util.env.venmoClientSecret,
-                callbackURL: 'http://jirani.cloaudapp.net/api/venmo/callback'
+                callbackURL: 'http://jirani.cloudapp.net/api/venmo/callback'
             }, function(accessToken, refreshToken, profile, done) {
                 var User        = db.models.User,
-                    name        = profile.first_name + ' ' + profile.last_name,
+                    name        = profile.displayName,
                     email       = profile.email,
-                    pictureUrl  = profile.profile_picture_url,
+                    pictureUrl  = profile._json.profile_picture_url,
                     venmoId     = profile.id;
 
                 User.findOrCreate({
-                    venmoId:    venmoId,
-                    name:       name,
-                    email:      email,
-                    pictureUrl: pictureUrl,
-                }).then(function(user, created) {
-                    if (!user) {
+                    where: {
+                        venmoId:    venmoId,
+                        email:      email,
+                    },
+                    defaults: {
+                        name:       name,
+                        pictureUrl: pictureUrl
+                    }
+                }).then(function(result, created) {
+                    if (!result || !result.length) {
                         return done({
                             message: 'Could not authenticate user'
                         });
                     } else {
                         // We found a user matching that user name
-                        return done(undefined, user);
+                        return done(undefined, result[0].dataValues);
                     }
                 }).catch(function(err) {
                     return done(err);
                 });
             }));
+
+            // Teach passport how to think about users in the database
+            passport.serializeUser(function(user, done) {
+                done(null, user.id);
+            });
+            passport.deserializeUser(function(req, id, done) {
+                var User = req.models.User;
+                User.find(id).success(function(user) {
+                    done(undefined, user);
+                }).error(function(err) {
+                    done(err);
+                });
+            });
 
             // Passport is now ready to plow
             log.debug('Passport configuration complete');
