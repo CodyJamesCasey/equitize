@@ -1,3 +1,5 @@
+var React           = require('react');
+
 var MainPage = React.createClass({
 
     render: function() {
@@ -7,3 +9,5 @@ var MainPage = React.createClass({
         );
     }
 });
+
+module.exports = MainPage;

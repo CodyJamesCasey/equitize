@@ -1,3 +1,5 @@
+var React           = require('react');
+
 var Router = React.createClass({
 
 	changePage: function(event){
@@ -29,3 +31,5 @@ var Router = React.createClass({
 });
 
 React.render(<Router/>, document.body);
+
+module.exports = Router;

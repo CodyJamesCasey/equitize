@@ -1,3 +1,5 @@
+var React           = require('react');
+
 var ListItem = React.createClass({
 
 	getDefaultProps: function(){
@@ -12,9 +14,13 @@ var ListItem = React.createClass({
 		var firstName = this.props.firstName;
 		var lastName = this.props.lastName;
 		return(
-			<div>
+			<div className ="list-item">
+				<h3>
 				{firstName} {lastName}
+				</h3>
 			</div>
 		)
 	}
 });
+
+module.exports = ListItem;
