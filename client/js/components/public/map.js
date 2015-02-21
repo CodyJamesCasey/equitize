@@ -5,9 +5,7 @@ var Map = React.createClass({
     render: function() {
 
         return ( 
-    		<div id="map">
-    			map
-    		</div>
+    		<div id="mapDiv" className="map"></div>
         );
     }
 });
