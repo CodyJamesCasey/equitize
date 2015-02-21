@@ -27,7 +27,7 @@ exports.route = function(app, callback) {
                     // Main page route must be added _after_ all the others
                     log.debug('Loading main page route');
                     app.get('/*', function(req, res) {
-                        res.sendFile(path.join(__dirname, '..', '..', 'client', 'dist', 'pages', 'index.html'));
+                        res.sendFile(path.join(__dirname, '..', '..', 'public', 'dist', 'pages', 'index.html'));
                     });
                     // All routing now complete
                     log.info('Endpoint routing completed');

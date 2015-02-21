@@ -20,7 +20,6 @@ var match   = util.env.dbConnString.match(/postgres:\/\/([^:]+):([^@]+)@([^:]+):
 
 module.exports = {
     setup: function(app, callback) {
-        callback();
         models.model(db, function(err, modelMap) {
             if (err) callback(err);
             else {

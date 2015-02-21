@@ -153,97 +153,15 @@ gulp.task('dev', ['watch'], function() {
     nodemon({
         script: 'index.js',
         ext: 'js',
-        ignore: ['public/*'],
+        ignore: ['public/**/*'],
         env: {
             // Server environment
-            PORT: 3000,
+            PORT: 80,
             DB: constants.DEV_DB_CONN_STRING,
             VERBOSE: true,
             SESSION_SECRET: 'thisisnotasecretatall'
         }
     });
-});
-
-// Runs staging server and watches public code
-gulp.task('stage', ['clean', 'less', 'pages', 'images', 'watchify'], function() {
-    nodemon({
-        script: 'index.js',
-        ext: 'js',
-        ignore: ['public/*'],
-        env: {
-            // Server environment
-            PORT: 80,
-            DB: constants.STAGING_DB_CONN_STRING,
-            VERBOSE: true,
-            SESSION_SECRET: 'thisisnotasecretatall'
-        }
-    });
-});
-
-gulp.task('githook', function() {
-    var app = express();
-
-    app.use(bodyParser.text({
-        'type': 'application/json'
-    }));
-
-    app.post('/githook', function(req, res) {
-        xHubSig = req.headers['x-hub-signature'].substring(5);
-        hmac = crypto.createHmac('sha1', 'thisissosecret');
-        hmac.write(req.body);
-        computedHubSig = hmac.digest('hex');
-        if (computedHubSig === xHubSig) {
-            gutil.log('\n\nNew changes available:\n');
-            async.series([
-                function(cb) {
-                    gutil.log('Pulling down changes from github...');
-                    git.pull('origin', 'master', {}, cb);
-                },
-                function(cb) {
-                    gutil.log('Installing new node dependencies...');
-                    exec('npm install', cb);
-                },
-                function(cb) {
-                    gutil.log('Packaging revised assets...');
-                    gulp.start('default');
-                    cb();
-                },
-                function(cb) {
-                    gutil.log('Stopping the web server...');
-                    exec('forever stop index.js', cb);
-                },
-                function(cb) {
-                    gutil.log('Waiting for forever to restart everything (10 seconds)...');
-                    setTimeout(function() {
-                        cb();
-                    }, 10000);
-                },
-                function(cb) {
-                    gutil.log('Restarting the web server...');
-                    exec('forever start index.js', cb);
-                }
-            ], function(err) {
-                if (err) {
-                    res.status(500).send();
-                    console.error(err);
-                    gutil.log('New changes NOT integrated successfully.\n');
-                } else {
-                    res.status(200).send();
-                    gutil.log('New changes integrated successfully.\n');
-                }
-            });
-        } else {
-            res.status(500).send();
-            gutil.log('Digests don\'t match');
-        }
-    });
-
-    http.createServer(app).listen(4000, '0.0.0.0');
-});
-
-// Starts the production server
-gulp.task('deploy', function(done) {
-    exec('forever start index.js', done);
 });
 
 // Run all compilation tasks
