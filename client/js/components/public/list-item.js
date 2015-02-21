@@ -1,3 +1,5 @@
+var React           = require('react');
+
 var ListItem = React.createClass({
 
 	getDefaultProps: function(){
@@ -18,3 +20,5 @@ var ListItem = React.createClass({
 		)
 	}
 });
+
+module.exports = ListItem;

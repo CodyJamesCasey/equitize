@@ -48,7 +48,7 @@ var helpers = {
             })
             .pipe(plumber())
             .pipe(source(path.join(__dirname, 'main.js')))
-            .pipe(gulp.dest(path.join(__dirname, 'public', 'dist', 'js')))
+            .pipe(gulp.dest(path.join(__dirname, 'client', 'dist', 'js')))
     },
     delay: function(callback) {
         // Waits a second before executing a function
@@ -69,7 +69,7 @@ gulp.task('browserify', function() {
     // React middleware for JSX
     bundler.transform(reactify);
     // Add the entry point
-    bundler.add(path.join(__dirname, 'public', 'js', 'main.js'));
+    bundler.add(path.join(__dirname, 'client', 'js', 'main.js'));
     // Perform initial rebundle
     return helpers.rebundle(bundler);
 });
@@ -91,61 +91,61 @@ gulp.task('watchify', function() {
         helpers.rebundle(bundler);
     });
     // Add the entry point
-    bundler.add(path.join(__dirname, 'public', 'js', 'main.js'));
+    bundler.add(path.join(__dirname, 'client', 'js', 'main.js'));
     // Perform initial rebundle
     return helpers.rebundle(bundler);
 });
 
 // Compiles the public less
 gulp.task('less', function() {
-    gulp.src(path.join('public', 'less', 'main.less'))
+    gulp.src(path.join('client', 'less', 'main.less'))
         .pipe(plumber())
         .pipe(sourcemaps.init())
         .pipe(less())
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest(path.join('public', 'dist', 'css')));
+        .pipe(gulp.dest(path.join('client', 'dist', 'css')));
 });
 
 // Condenses the pages
 gulp.task('pages', function() {
-    gulp.src('./public/pages/*.html')
+    gulp.src('./client/pages/*.html')
         .pipe(plumber())
         .pipe(minify({
             empty: true,
             spare: true
         }))
-        .pipe(gulp.dest(path.join('public', 'dist', 'pages')));
+        .pipe(gulp.dest(path.join('client', 'dist', 'pages')));
 });
 
 // Condenses the images
 gulp.task('images', function() {
     // TODO: image compression
-    gulp.src('./public/img/**/*')
+    gulp.src('./client/img/**/*')
         .pipe(plumber())
-        .pipe(gulp.dest(path.join('public', 'dist', 'img')));
+        .pipe(gulp.dest(path.join('client', 'dist', 'img')));
 });
 
 // Condenses the images
 gulp.task('images-delayed', function() {
     // TODO: image compression
     setTimeout(function() {
-        gulp.src('./public/img/**/*')
+        gulp.src('./client/img/**/*')
             .pipe(plumber())
-            .pipe(gulp.dest(path.join('public', 'dist', 'img')))
+            .pipe(gulp.dest(path.join('client', 'dist', 'img')))
             .on('error', helpers.smother);
     }, 500);
 });
 
 // Clears all compiled public code
 gulp.task('clean', function() {
-    clean.sync(path.join(__dirname, 'public', 'dist'));
+    clean.sync(path.join(__dirname, 'client', 'dist'));
 });
 
 // Watches changes to the public code
 gulp.task('watch', ['clean', 'less', 'pages', 'images', 'watchify'], function() {
-    gulp.watch('public/pages/*.html', ['pages']);
-    gulp.watch('public/less/**/*.less', ['less']);
-    gulp.watch('public/img/**/*', ['images-delayed']);
+    gulp.watch('client/pages/*.html', ['pages']);
+    gulp.watch('client/less/**/*.less', ['less']);
+    gulp.watch('client/img/**/*', ['images-delayed']);
 });
 
 // Runs dev server and watches public code
@@ -153,7 +153,7 @@ gulp.task('dev', ['watch'], function() {
     nodemon({
         script: 'index.js',
         ext: 'js',
-        ignore: ['public/**/*'],
+        ignore: ['client/**/*'],
         env: {
             // Server environment
             PORT: 80,

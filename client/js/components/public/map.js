@@ -1,3 +1,5 @@
+var React           = require('react');
+
 var Map = React.createClass({
 
     render: function() {
@@ -9,3 +11,5 @@ var Map = React.createClass({
         );
     }
 });
+
+module.exports = Map;
