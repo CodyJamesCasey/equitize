@@ -13,7 +13,8 @@ var Route           = Router.Route,
 var NotFound    = require('./components/404');
 // Publicly accessible page components
 var Public      = require('./components/public'),
-    Landing      = require('./components/public/landing');
+    Landing     = require('./components/public/landing'),
+    Detail      =require('./components/public/detail');
 
 // Authentication-required page components
 // TODO make the internal pages a thing
@@ -23,6 +24,7 @@ var sitemap = (
     <Route handler={RouteHandler}>
         <Route name="public" path="/test" handler={Public}>
             <DefaultRoute name="landing" handler={Landing}/>
+            <Route name="detail" handler={Detail}/>
         </Route>
         <NotFoundRoute name="404" handler={NotFound}/>
     </Route>
