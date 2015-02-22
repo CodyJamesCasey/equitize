@@ -1,5 +1,9 @@
 var React           = require('react'),
-    Router          = require('react-router');
+    Router          = require('react-router'),
+    mui = require('material-ui'),
+	Paper = mui.Paper,
+	RaisedButton = mui.RaisedButton,
+	FloatingActionButton = mui.FloatingActionButton;
 
 var ListItem            = require('./list-item');
 
@@ -18,18 +22,32 @@ var List = React.createClass({
             daysLeft = (currentFund.deadline - (new Date()).getTime()) / (1000 * 60 * 60 * 24);
 
             rowElements.push(
-                <div className="row">
-                    <div className="title">{currentFund.title}</div>
-                    <div className="description">{currentFund.description}</div>
-                    <div className="amount">{'$' + currentFund.amount}</div>
-                    <div className="days-left">{daysLeft}</div>
-                </div>
+            	<Paper zDepth={1} innerClassName="list-item">
+					<div className ="list-item">
+	                    <h3>{currentFund.title}</h3>
+	                    <div>
+							<RaisedButton className="button" label="More" primary={true} />
+							<div className="bot-right-card">
+								<div className="days-left"><span className="icon"></span>{daysLeft}</div>
+			                    <div className="amount"><span className="icon"></span>{currentFund.amount}</div>
+		                    </div>
+	                    </div>
+	                </div>
+				</Paper>
             );
         }
 
         return (
-            <div id="list">
-                {rowElements}
+        	<div>
+	        	<Paper zDepth={1}>
+	        		<div id="list-head">
+			    	<h2>Current Funds</h2>
+			    	<FloatingActionButton iconClassName="muidocs-icon-action-grade" />
+			    	</div>
+	        	</Paper>
+	            <div id="list">
+	                {rowElements}
+	            </div>
             </div>
         );
     }
