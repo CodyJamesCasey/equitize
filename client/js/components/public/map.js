@@ -1,5 +1,4 @@
 var React           = require('react');
-
 var GoogleMaps      = require('react-google-maps');
 
 var GoogleMapsMixin = GoogleMaps.GoogleMapsMixin,
