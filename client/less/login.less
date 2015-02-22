@@ -33,11 +33,12 @@ html {
 }
 
 #whitehead{
-  background-color: #00C853 !important; 
+  background-color: #00C853 !important;
+  box-shadow: 0 14px 45px rgba(0,0,0,0.25);
 }
 
  .button {
-      bottom: 5px;
+      bottom: 10px;
       left: 190px;
       position: absolute;
       width: 120px;
@@ -47,6 +48,10 @@ html {
       font-size: 0.9em;
       background-color: #fff;
       color: #646464;
+   
+      &:hover {
+        cursor: pointer;
+      }
     }
     
     .button > paper-ripple {
