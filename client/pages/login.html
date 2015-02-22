@@ -5,6 +5,8 @@
         <link rel="stylesheet" type="text/css" href="/static/css/main.css">
         <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,500' rel='stylesheet' type='text/css'>
         <link rel="import" href="http://www.polymer-project.org/components/paper-ripple/paper-ripple.html">
+        <link rel="import" href="http://www.polymer-project.org/components/core-icons/core-icons.html">
+        <link rel="import" href="http://www.polymer-project.org/components/font-roboto/roboto.html">
     </head>
     <body>
       <header id="whitehead">
@@ -12,7 +14,7 @@
       </header>
       <div id="container">
         <div id="loginarea">
-          <div class="button raised green">
+          <div class="button raised green" onclick="location.href='/api/auth/venmo';">
             <div class="center" fit>OK</div>
             <paper-ripple fit></paper-ripple>
           </div>
