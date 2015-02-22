@@ -358,8 +358,9 @@ exports.route = function(app) {
             .then(function(results) {
                 res.status(200).json(results);
             })
-            .catch(function() {
+            .catch(function(err) {
                 res.status(500).send();
+                log.error('Could not create new fund', err);
             });
         }
     });
