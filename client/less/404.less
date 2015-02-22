@@ -1,0 +1,21 @@
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+html {
+ height: 100%;
+ width: 100%;
+ margin: 0;
+  
+  body {
+   height: 100%;
+   width: 100%;
+   margin: 0;
+  }
+}
+
+.404 {
+  -webkit-animation:spin 4s linear infinite;
+    -moz-animation:spin 4s linear infinite;
+    animation:spin 4s linear infinite;
+}
