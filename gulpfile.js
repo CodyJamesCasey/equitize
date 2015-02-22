@@ -153,7 +153,7 @@ gulp.task('dev', ['watch'], function() {
     nodemon({
         script: 'index.js',
         ext: 'js',
-        ignore: ['client/**/*'],
+        ignore: ['client/*', 'dist/*'],
         env: {
             // Server environment
             PORT: 3000,
