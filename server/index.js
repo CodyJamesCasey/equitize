@@ -7,7 +7,8 @@ var express         = require('express'),
     cookieParser    = require('cookie-parser'),
     bodyParser      = require('body-parser'),
     passport        = require('passport'),
-    passportVenmo   = require('passport-venmo');
+    passportVenmo   = require('passport-venmo'),
+    multer          = require('multer');
 
 var routes      = require('./routes'),
     db          = require('./db'),
@@ -20,6 +21,13 @@ module.exports = function(done) {
     // Middleware
     // Serves our static assets
     app.use('/static', express.static(path.join(__dirname, '..', 'dist')));
+    // Handle file uploads
+    app.use(multer({
+        dest: path.join(__dirname, '..', 'uploads'),
+        rename: function(fieldname, filename) {
+            return 'upload' + (new Date()).getTime() + filename;
+        }
+    }));
     // Parses cookies
     app.use(cookieParser());
     // Reads JSON request bodies

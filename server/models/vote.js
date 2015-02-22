@@ -16,19 +16,16 @@ module.exports = {
     relate: function(models) {
         var FundModel   = models.Fund,
             UserModel   = models.User,
+            ClaimModel  = models.Claim,
             VoteModel   = models[MODEL_ID];
 
-        // A contribution has a fund foreign key
-        VoteModel.belongsTo(FundModel, {
-            as: 'fund'
-        });
-        // A contribution has a user foreign key
+        // A vote has a user foreign key
         VoteModel.belongsTo(UserModel, {
             as: 'user'
         });
-        // A contribution has a claimer foreign key
-        VoteModel.belongsTo(UserModel, {
-            as: 'claimer'
+        // A vote has a claim foreign key
+        VoteModel.belongsTo(ClaimModel, {
+            as: 'claim'
         });
     }
 };

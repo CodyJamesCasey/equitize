@@ -6,5 +6,12 @@ module.exports = {
         venmoClientId: process.env.VENMO_CLIENT_ID || 'NO_VENMO_CLIENT_ID',
         venmoClientSecret: process.env.VENMO_CLIENT_SECRET || 'NO_VENMO_CLIENT_SECRET',
         dbConnString: process.env.DB || 'postgres://groupdirectdev:groupdirectdev@localhost:5432/jiranidev'
+    },
+    db: {
+        sanitizeResultSet: function(resultSet) {
+            return resultSet.map(function(result) {
+                return result.dataValues;
+            });
+        }
     }
 };
