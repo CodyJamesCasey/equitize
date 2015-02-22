@@ -22,7 +22,7 @@ var Public      = require('./components/public'),
 // Routes representing the frontend
 var sitemap = (
     <Route handler={RouteHandler}>
-        <Route name="public" path="/test" handler={Public}>
+        <Route name="public" path="/" handler={Public}>
             <DefaultRoute name="landing" handler={Landing}/>
             <Route name="detail" handler={Detail}/>
         </Route>
