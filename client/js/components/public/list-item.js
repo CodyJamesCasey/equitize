@@ -1,31 +1,38 @@
 var React           = require('react'),
 	mui = require('material-ui'),
 	Paper = mui.Paper;
+	RaisedButton = mui.RaisedButton;
+
 
 
 var ListItem = React.createClass({
 
 	getDefaultProps: function(){
 		return{
-
-			firstName: 'Cody',
-			lastName: 'Casey'
+			image: '/static/img/cute-cat.jpg'
 		}
 	},
 
 	render: function(){
-		var firstName = this.props.firstName;
-		var lastName = this.props.lastName;
+		var title = this.props.title,
+			description = this.props.description,
+			amount = this.props.amount,
+			daysleft = this.props.days-left,
+			image = this.props.image;
 		return(
 			<Paper zDepth={1} innerClassName="list-item">
 				<div className ="list-item">
+					<div>
+						<img></img>
+					</div>
 					<h3>
-					{firstName} {lastName}
+						{title}
 					</h3>
-					<h4>
-						Here is the description of the task that can be done. 
-						I'm not really sure how long to make it, but whatevz.
-					</h4>
+					<div>
+						<RaisedButton label="More" primary={true} />
+						<span>{daysleft}</span>
+						<span>{amount}</span>
+					</div>
 				</div>
 			</Paper>
 		)

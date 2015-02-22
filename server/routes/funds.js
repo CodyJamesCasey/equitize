@@ -77,6 +77,7 @@ exports.route = function(app) {
 
     app.get('/api/funds/:id', function(req, res) {
         var id              = parseInt(req.params.id),
+            User            = req.models.User,
             Fund            = req.models.Fund,
             Claim           = req.models.Claim,
             Contribution    = req.models.Contribution,
@@ -95,10 +96,23 @@ exports.route = function(app) {
             Contribution.findAll({
                 where: {
                     fundId: id
-                }
+                },
+                include: [{
+                    as: 'user',
+                    model: User
+                }]
             }).then(function(contributionsList) {
+                var contributorMap = {};
+
                 returnObj.contributions = util.db.sanitizeResultSet(contributionsList);
+                returnObj.contributors = [];
                 // Find contributors
+                for (var i = 0; i < returnObj.contributions.length; i++) {
+                    if (!contributorMap[returnObj.contributions[i].userId]) {
+                        contributorMap[returnObj.contributions[i].userId] = true;
+                        returnObj.contributors.push(returnObj.contributions[i].user);
+                    }
+                }
                 // Next get the claims
                 Claim.findAll({
                     where: {

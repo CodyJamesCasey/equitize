@@ -14,7 +14,8 @@ var NotFound    = require('./components/404');
 // Publicly accessible page components
 var Public      = require('./components/public'),
     Landing     = require('./components/public/landing'),
-    Detail      =require('./components/public/detail');
+    Detail      =require('./components/public/detail'),
+    CreateFund     =require('./components/public/create-fund');
 
 // Authentication-required page components
 // TODO make the internal pages a thing
@@ -25,6 +26,7 @@ var sitemap = (
         <Route name="public" path="/" handler={Public}>
             <DefaultRoute name="landing" handler={Landing}/>
             <Route name="detail" handler={Detail}/>
+            <Route name="create-fund" handler={CreateFund}/>
         </Route>
         <NotFoundRoute name="404" handler={NotFound}/>
     </Route>
