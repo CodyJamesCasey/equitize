@@ -57,7 +57,7 @@ module.exports = function(done) {
             passport.use(new passportVenmo.Strategy({
                 clientID: util.env.venmoClientId,
                 clientSecret: util.env.venmoClientSecret,
-                callbackURL: 'http://jirani.cloudapp.net/api/venmo/callback'
+                callbackURL: util.env.venmoCallbackUrl
             }, function(accessToken, refreshToken, profile, done) {
                 var User        = db.models.User,
                     name        = profile.displayName,
