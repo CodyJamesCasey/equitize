@@ -6,7 +6,9 @@ var Header = React.createClass({
 
         return ( 
     		<header>
-    			header
+    			<h1>
+    			Jirani
+    			</h1>
             </header>
         );
     }

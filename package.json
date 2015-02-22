@@ -37,6 +37,7 @@
     "express": "^4.11.2",
     "express-session": "^1.10.3",
     "gulp": "^3.8.11",
+    "material-design-icons": "^1.0.1",
     "material-ui": "^0.7.0",
     "passport": "^0.2.1",
     "passport-venmo": "0.0.1",
