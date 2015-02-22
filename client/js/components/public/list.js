@@ -1,3 +1,8 @@
+var React           = require('react'),
+    Router          = require('react-router');
+
+var ListItem            = require('./list-item');
+
 var List = React.createClass({
 
 	render: function(){
@@ -9,3 +14,5 @@ var List = React.createClass({
 		return <div id="list">{rows}</div>;
 	}
 });
+
+module.exports = List;
