@@ -1,14 +1,13 @@
-var React           = require('react');
+var React   = require('react'),
+    mui     = require('material-ui');
 
 var Header = React.createClass({
 
     render: function() {
 
-        return ( 
-    		<header>
-    			<h1>
-    			Jirani
-    			</h1>
+        return (
+            <header>
+                <div className="">Jirani</div>
             </header>
         );
     }

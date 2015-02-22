@@ -9,7 +9,7 @@ module.exports = {
         if (!model) {
             model = db.define(MODEL_ID, {
                 title:          Sequelize.STRING,
-                description:    Sequelize.STRING,
+                description:    Sequelize.TEXT,
                 amount:         Sequelize.DECIMAL,
                 deadline:       Sequelize.BIGINT,
                 address:        Sequelize.STRING,
