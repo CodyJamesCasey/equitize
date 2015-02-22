@@ -23,18 +23,28 @@ var LandingPage = React.createClass({
             funds: funds
         });
     },
+    onLocationLoaded: function(position) {
+        this.setState({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude
+        });
+    },
     // React functions
     getInitialState: function() {
         return {
-            funds: AppState.funds
+            funds: AppState.funds,
+            latitude: AppState.latitude,
+            longitude: AppState.longitude
         };
     },
     componentWillMount: function() {
         // Localize all external listeners
         this.localize('onFundsLoaded');
+        this.localize('onLocationLoaded');
 
         // Setup event listeners
         EventBus.on(Events.FUNDS_LOADED, this.onFundsLoaded);
+        EventBus.on(Events.LOCATION_LOADED, this.onLocationLoaded);
 
         // Check if we have to load funds
         if (this.state.funds.length < 1) {
@@ -46,17 +56,22 @@ var LandingPage = React.createClass({
                 }
             });
         }
+        // Check if we have our location
+        navigator.geolocation.getCurrentPosition(function(position) {
+            EventBus.emit(Events.LOCATION_LOADED, position);
+        });
     },
     componentWillUnmount: function() {
         // Unregister event listeners
         EventBus.off(Events.FUNDS_LOADED, this.onFundsLoaded);
+        EventBus.off(Events.LOCATION_LOADED, this.onLocationLoaded);
     },
     render: function() {
         if (this.state.funds.length > 0) {
             return (
                 <main id="landing-page">
                     <List funds={this.state.funds} />
-                    <Map funds={this.state.funds} />
+                    <Map funds={this.state.funds} latitude={this.state.latitude} longitude={this.state.longitude}/>
                 </main>
             );
         } else {
