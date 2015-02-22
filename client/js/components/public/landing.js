@@ -1,5 +1,6 @@
 var React           = require('react'),
-    Router          = require('react-router');
+    Router          = require('react-router'),
+    mui             = require('material-ui');
 
 var List            = require('./list'),
     Map         = require('./map');
@@ -12,6 +13,8 @@ var LocalizeMixin   = require('../../mixins/localize');
 var FundService     = require('../../services/funds');
 
 var AppState        = require('../../appstate');
+
+var FloatingActionButton = mui.FloatingActionButton;
 
 var LandingPage = React.createClass({
     mixins: [
@@ -72,6 +75,7 @@ var LandingPage = React.createClass({
                 <main id="landing-page">
                     <List funds={this.state.funds} />
                     <Map funds={this.state.funds} latitude={this.state.latitude} longitude={this.state.longitude}/>
+                    <FloatingActionButton id="plus-button" iconClassName="muidocs-icon-action-grade" zDepth={5} secondary={true} />
                 </main>
             );
         } else {
